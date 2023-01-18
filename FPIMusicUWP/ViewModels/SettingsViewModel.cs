@@ -5,9 +5,9 @@ using System.Windows.Input;
 using FPIMusicUWP.Helpers;
 using FPIMusicUWP.Services;
 using FPIMusicUWP.Services.Settings;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
@@ -100,6 +100,8 @@ namespace FPIMusicUWP.ViewModels
         public SettingsViewModel(/*ISettingService settingService*/)
         {
             _settingService = Ioc.Default.GetRequiredService<ISettingService>();
+            if (!string.IsNullOrEmpty(_settingService.APIURLEndpoint))
+                CandidateURL = _settingService.APIURLEndpoint;
         }
 
         public async Task InitializeAsync()

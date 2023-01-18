@@ -3,7 +3,7 @@
 using FPIMusicUWP.Services;
 using FPIMusicUWP.Services.Settings;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -20,11 +20,18 @@ namespace FPIMusicUWP
 
         public App()
         {
-            InitializeComponent();
-            UnhandledException += OnAppUnhandledException;
+            try
+            {
+                InitializeComponent();
+                UnhandledException += OnAppUnhandledException;
 
-            // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
-            _activationService = new Lazy<ActivationService>(CreateActivationService);
+                // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
+                _activationService = new Lazy<ActivationService>(CreateActivationService);
+            }
+            catch (Exception ex)
+            {
+                //throw;
+            }
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -37,7 +44,6 @@ namespace FPIMusicUWP
                new ServiceCollection()
                .AddSingleton<ISettingService,SettingService>()
                .AddSingleton<IService, Service>()
-               //.AddSingleton<HomeViewModel>()
                .BuildServiceProvider());
         }
 

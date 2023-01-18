@@ -3,6 +3,7 @@
 using FPIMusicUWP.ViewModels;
 
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace FPIMusicUWP.Views
 {
@@ -13,6 +14,10 @@ namespace FPIMusicUWP.Views
         public HomeCompilPage()
         {
             InitializeComponent();
+        }
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await ViewModel.InitializeAsync();
         }
     }
 }

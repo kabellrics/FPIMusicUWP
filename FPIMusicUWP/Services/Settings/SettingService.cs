@@ -9,15 +9,15 @@ using static Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionValues;
 
 namespace FPIMusicUWP.Services.Settings
 {
-    public class SettingService: ISettingService
+    public class SettingService : ISettingService
     {
         private SettingsClient SettingConnector;
         public SettingService()
         {
-            if (!string.IsNullOrEmpty(APIURLEndpoint))
-            {
-                SettingConnector = new SettingsClient(APIURLEndpoint, new HttpClient());
-            }
+            //if (!string.IsNullOrEmpty(APIURLEndpoint))
+            //{
+            SettingConnector = new SettingsClient(APIURLEndpoint, new HttpClient());
+            //}
         }
         private void SettingURL()
         {
@@ -32,22 +32,46 @@ namespace FPIMusicUWP.Services.Settings
                 return localSettings.Values[IdUrlBase] as string;
             }
             //Preferences.Get(IdUrlBase, string.Empty)};
-            set { var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            set
+            {
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                 localSettings.Values[IdUrlBase] = value;
+                SettingURL();
                 //Preferences.Set(IdUrlBase, value); SettingURL();
             }
         }
         public string MediathequePath
         {
-            get => SettingConnector.MediathequePathAsync().Result.Value;
+            get
+            {
+                if (string.IsNullOrEmpty(APIURLEndpoint))
+                {
+                    return string.Empty;
+                }
+                else { return SettingConnector.MediathequePathAsync()?.Result?.Value; }
+            }
         }
         public string CompilationPath
         {
-            get => SettingConnector.CompilationPathAsync().Result.Value;
+            get
+            {
+                if (string.IsNullOrEmpty(APIURLEndpoint))
+                {
+                    return string.Empty;
+                }
+                else { return SettingConnector.CompilationPathAsync()?.Result?.Value; }
+            }
         }
         public string DeezerPath
         {
-            get => SettingConnector.DeezerPathAsync().Result.Value;
+            get
+            {
+                if (string.IsNullOrEmpty(APIURLEndpoint))
+                {
+                    return string.Empty;
+                }
+                else { return SettingConnector.DeezerPathAsync()?.Result?.Value; }
+            }
         }
 
     }

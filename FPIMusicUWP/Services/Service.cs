@@ -1,6 +1,8 @@
 ﻿using FPIMusicUWP.Services.Compilation;
 using FPIMusicUWP.Services.Deezer;
 using FPIMusicUWP.Services.Mediatheque;
+using FPIMusicUWP.Services.Settings;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +14,13 @@ namespace FPIMusicUWP.Services
 {
     public class Service:IService
     {
-        private readonly String _ApiURL;
-        public Service(String ApiURL)
+        private readonly ISettingService _settingService;
+        public Service()
         {
-            _ApiURL = ApiURL;
-            Compilation = new CompilService(_ApiURL);
-            Mediatheque = new MediaService(_ApiURL);
-            Deezer = new DeezerService(_ApiURL);
+            _settingService = Ioc.Default.GetRequiredService<ISettingService>();
+            Compilation = new CompilService(_settingService.APIURLEndpoint);
+            Mediatheque = new MediaService(_settingService.APIURLEndpoint);
+            Deezer = new DeezerService(_settingService.APIURLEndpoint);
         }
         public ICompilService Compilation { get; private set; }
 

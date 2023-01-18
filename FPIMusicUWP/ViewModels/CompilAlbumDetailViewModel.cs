@@ -7,7 +7,7 @@ using FPIMusicUWP.Core.Models;
 using FPIMusicUWP.Core.Services;
 using FPIMusicUWP.Helpers;
 
-using Microsoft.Toolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 using Windows.UI.Xaml.Navigation;
 

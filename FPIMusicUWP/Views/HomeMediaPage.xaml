@@ -4,15 +4,91 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>            
+            <TextBlock Grid.Row="0" Text="Artistes avec le plus d'albums" Margin="{StaticResource SmallTopBottomMargin}" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalTextAlignment="Center" HorizontalAlignment="Center" />
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
+                    <controls:ImageEx 
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.FirstMostAlbum.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                </Viewbox>
+                <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3">
+                    <controls:ImageEx Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.SecondMostAlbum.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                </Viewbox>
+                <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3">
+                    <controls:ImageEx
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.ThirdMostAlbum.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                </Viewbox>
+            </Grid>
+            <TextBlock Grid.Row="2" Text="Artistes avec le plus de morceaux" Margin="{StaticResource SmallTopBottomMargin}" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalTextAlignment="Center" HorizontalAlignment="Center" />
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
+                    <controls:ImageEx
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.FirstMostSong.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                </Viewbox>
+                <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3">
+                    <controls:ImageEx
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.SecondMostSong.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                </Viewbox>
+                <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3">
+                    <controls:ImageEx
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.ThirdMostSong.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                </Viewbox>
+
+            </Grid>
         </Grid>
     </Grid>
 </Page>
