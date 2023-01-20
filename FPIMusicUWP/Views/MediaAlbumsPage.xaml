@@ -7,13 +7,48 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:FPIMusicUWP.Core.Models"
+    xmlns:models="using:FPIMusicUWP.ViewModels.ObservableObj.Mediatheque"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     NavigationCacheMode="Required"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <CollectionViewSource
+    x:Name="GroupsSource"
+    Source="{x:Bind ViewModel.GrpAlbums}"
+    IsSourceGrouped="true"
+    ItemsPath="Items"
+    />
+    </Page.Resources>
 
-    <Grid x:Name="ContentArea">
-        <GridView
+        <Grid x:Name="ContentArea">
+            <GridView x:Name="gridinzoom" ItemsSource="{x:Bind GroupsSource.View}"
+                          ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollMode="Enabled"
+        AutomationProperties.AutomationId="gridinzoom"
+        AutomationProperties.Name="Grouped Items"
+                  Margin="116,0,40,6"
+                  ItemTemplate="{StaticResource MediaAlbumTemplate}">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+                <GridView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate x:DataType="models:ObsGroupedMediaAlbum">
+                                <TextBlock Text="{x:Bind Key}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                        <GroupStyle.Panel>
+                            <ItemsPanelTemplate>
+                                <VariableSizedWrapGrid Orientation="Vertical" MaximumRowsOrColumns="4" Margin="0,0,80,0"/>
+                            </ItemsPanelTemplate>
+                        </GroupStyle.Panel>
+                    </GroupStyle>
+                </GridView.GroupStyle>
+            </GridView>
+            <!--<GridView
             Padding="{StaticResource MediumLeftRightMargin}"
             animations:Connected.ListItemElementName="thumbnailImage"
             animations:Connected.ListItemKey="galleryAnimationKey"
@@ -35,6 +70,6 @@
                         Style="{StaticResource ThumbnailImageStyle}" />
                 </DataTemplate>
             </GridView.ItemTemplate>
-        </GridView>
+        </GridView>-->
     </Grid>
 </Page>

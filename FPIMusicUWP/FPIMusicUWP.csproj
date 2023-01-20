@@ -182,6 +182,10 @@
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\ImagesNavigationHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
+    <Compile Include="Helpers\NBAlbumConverter.cs" />
+    <Compile Include="Helpers\NBArtisteConverter.cs" />
+    <Compile Include="Helpers\NBPlaylistConverter.cs" />
+    <Compile Include="Helpers\NBSongConverter.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
@@ -217,6 +221,7 @@
     <Compile Include="Services\Settings\ISettingService.cs" />
     <Compile Include="Services\Settings\SettingService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="Styles\DataTemplates.cs" />
     <Compile Include="ViewModels\CompilAlbumDetailViewModel.cs" />
     <Compile Include="ViewModels\CompilAlbumViewModel.cs" />
     <Compile Include="ViewModels\CompilArtistesDetailViewModel.cs" />
@@ -235,6 +240,12 @@
     <Compile Include="ViewModels\MediaAlbumsViewModel.cs" />
     <Compile Include="ViewModels\MediaArtistesDetailViewModel.cs" />
     <Compile Include="ViewModels\MediaArtistesViewModel.cs" />
+    <Compile Include="ViewModels\ObservableObj\Compilation\ObsCompilAlbum.cs" />
+    <Compile Include="ViewModels\ObservableObj\Compilation\ObsCompilArtiste.cs" />
+    <Compile Include="ViewModels\ObservableObj\Deezer\ObsDeezerAlbum.cs" />
+    <Compile Include="ViewModels\ObservableObj\Deezer\ObsDeezerArtiste.cs" />
+    <Compile Include="ViewModels\ObservableObj\Deezer\ObsDeezerPlaylist.cs" />
+    <Compile Include="ViewModels\ObservableObj\Mediatheque\ObsMediaAlbum.cs" />
     <Compile Include="ViewModels\ObservableObj\Mediatheque\ObsMediaArtiste.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -313,6 +324,10 @@
     <Page Include="Styles\Image.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\LocalRessourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Page.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -467,8 +482,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\Scanner\" />
-    <Folder Include="ViewModels\ObservableObj\Compilation\" />
-    <Folder Include="ViewModels\ObservableObj\Deezer\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

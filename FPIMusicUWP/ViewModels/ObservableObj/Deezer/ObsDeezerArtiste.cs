@@ -1,20 +1,19 @@
-﻿using FPIMusicUWP.Core.ModelDTO;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using FPIMusicUWP.Core.ModelDTO;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 
-namespace FPIMusicUWP.ViewModels.ObservableObj.Mediatheque
+namespace FPIMusicUWP.ViewModels.ObservableObj.Deezer
 {
-    public class ObsMediaArtiste : ObservableObject
+    public class ObsDeezerArtiste : ObservableObject
     {
-        public MediaExtendedArtiste Artiste;
+        public DeezerExtendedArtiste Artiste;
         private string apiUrl;
-        public ObsMediaArtiste(MediaExtendedArtiste art, string Url)
+        public ObsDeezerArtiste(DeezerExtendedArtiste art, string Url)
         {
             Artiste = art;
             apiUrl = Url;
@@ -50,12 +49,17 @@ namespace FPIMusicUWP.ViewModels.ObservableObj.Mediatheque
             get => Artiste.NbAlbum;
             set => SetProperty(Artiste.NbAlbum, value, Artiste, (syteme, item) => Artiste.NbAlbum = item);
         }
+        public int NbPlaylist
+        {
+            get => Artiste.NbPlaylist;
+            set => SetProperty(Artiste.NbPlaylist, value, Artiste, (syteme, item) => Artiste.NbPlaylist = item);
+        }
         public string NbSongDisplay
         {
             get
             {
                 if (NbSong == 1)
-                    return "Une seule morceau";
+                    return "Un seule morceau";
                 else if (NbSong == 0)
                     return "Aucun morceau";
                 else
@@ -74,14 +78,26 @@ namespace FPIMusicUWP.ViewModels.ObservableObj.Mediatheque
                     return $"{NbAlbum} albums";
             }
         }
+        public string NbPlaylistDisplay
+        {
+            get
+            {
+                if (NbPlaylist == 1)
+                    return "Une seule playlist";
+                else if (NbPlaylist == 0)
+                    return "Aucune playlist";
+                else
+                    return $"{NbPlaylist} playlists";
+            }
+        }
         public string DisplayCover
         {
             //get => Path.Combine(apiUrl, "api/Img/MediaArt", Artiste.Id.ToString());
-            get => $"{apiUrl}/api/Img/MediaArt/{Artiste.Id.ToString()}";
+            get => $"{apiUrl}/api/Img/DeezerArt/{Artiste.Id.ToString()}";
 
         }
     }
-    public class ObsGroupedMediaArtiste : ObservableObject
+    public class ObsGroupedDeezerArtiste : ObservableObject
     {
         private string _key;
         public String Key
@@ -92,15 +108,15 @@ namespace FPIMusicUWP.ViewModels.ObservableObj.Mediatheque
                 SetProperty(ref _key, value);
             }
         }
-        public ObservableCollection<ObsMediaArtiste> Items { get; set; }
+        public ObservableCollection<ObsDeezerArtiste> Items { get; set; }
 
-        public ObsGroupedMediaArtiste(GroupedMediaExtendedArtiste groupedartiste, string uri)
+        public ObsGroupedDeezerArtiste(GroupedDeezerExtendedArtiste groupedartiste, string uri)
         {
             this.Key = groupedartiste.Key;
-            Items = new ObservableCollection<ObsMediaArtiste>();
+            Items = new ObservableCollection<ObsDeezerArtiste>();
             foreach (var item in groupedartiste.Items)
             {
-                Items.Add(new ObsMediaArtiste(item, uri));
+                Items.Add(new ObsDeezerArtiste(item, uri));
             }
         }
     }

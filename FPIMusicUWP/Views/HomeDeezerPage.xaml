@@ -4,15 +4,298 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:helper="using:FPIMusicUWP.Helpers"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
+            <FlipView>
+                <FlipViewItem>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Artistes avec le plus d'albums" Margin="{StaticResource SmallTopBottomMargin}" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalTextAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height=".1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="7*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
+                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill" 
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.FirstMostAlbum.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1" Grid.Row="4" Text="{x:Bind ViewModel.FirstMostAlbum.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="5" Text="{x:Bind ViewModel.FirstMostAlbum.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="6" Text="{x:Bind ViewModel.FirstMostAlbum.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="7" Text="{x:Bind ViewModel.FirstMostAlbum.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3">
+                                <controls:ImageEx  PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.SecondMostAlbum.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="0" Grid.Row="5" Text="{x:Bind ViewModel.SecondMostAlbum.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="6" Text="{x:Bind ViewModel.SecondMostAlbum.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="7" Text="{x:Bind ViewModel.SecondMostAlbum.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="8" Text="{x:Bind ViewModel.SecondMostAlbum.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="3" Grid.RowSpan="3">
+                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.ThirdMostAlbum.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="2" Grid.Row="6" Text="{x:Bind ViewModel.ThirdMostAlbum.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="7" Text="{x:Bind ViewModel.ThirdMostAlbum.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="8" Text="{x:Bind ViewModel.ThirdMostAlbum.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="9" Text="{x:Bind ViewModel.ThirdMostAlbum.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        </Grid>
+                    </Grid>
+                </FlipViewItem>
+                <FlipViewItem>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Artistes avec le plus de morceaux" Margin="{StaticResource SmallTopBottomMargin}" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalTextAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height=".1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="7*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
+                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.FirstMostSong.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1" Grid.Row="4" Text="{x:Bind ViewModel.FirstMostSong.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="5" Text="{x:Bind ViewModel.FirstMostSong.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="6" Text="{x:Bind ViewModel.FirstMostSong.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="7" Text="{x:Bind ViewModel.FirstMostSong.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3">
+                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.SecondMostSong.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="0" Grid.Row="5" Text="{x:Bind ViewModel.SecondMostSong.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="6" Text="{x:Bind ViewModel.SecondMostSong.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="7" Text="{x:Bind ViewModel.SecondMostSong.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="8" Text="{x:Bind ViewModel.SecondMostSong.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="3" Grid.RowSpan="3">
+                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.ThirdMostSong.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="2" Grid.Row="6" Text="{x:Bind ViewModel.ThirdMostSong.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="7" Text="{x:Bind ViewModel.ThirdMostSong.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="8" Text="{x:Bind ViewModel.ThirdMostSong.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="9" Text="{x:Bind ViewModel.ThirdMostSong.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+
+                        </Grid>
+                    </Grid>
+                </FlipViewItem>
+                <FlipViewItem>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Artistes dans le plus de playlist" Margin="{StaticResource SmallTopBottomMargin}" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalTextAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height=".1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="7*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
+                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.FirstMostPlaylist.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1" Grid.Row="4" Text="{x:Bind ViewModel.FirstMostPlaylist.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="5" Text="{x:Bind ViewModel.FirstMostPlaylist.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="6" Text="{x:Bind ViewModel.FirstMostPlaylist.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="7" Text="{x:Bind ViewModel.FirstMostPlaylist.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3">
+                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.SecondMostPlaylist.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="0" Grid.Row="5" Text="{x:Bind ViewModel.SecondMostPlaylist.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="6" Text="{x:Bind ViewModel.SecondMostPlaylist.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="7" Text="{x:Bind ViewModel.SecondMostPlaylist.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="8" Text="{x:Bind ViewModel.SecondMostPlaylist.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="3" Grid.RowSpan="3">
+                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.ThirdMostPlaylist.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                            </Viewbox>
+                            <TextBlock Grid.Column="2" Grid.Row="6" Text="{x:Bind ViewModel.ThirdMostPlaylist.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="7" Text="{x:Bind ViewModel.ThirdMostPlaylist.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="8" Text="{x:Bind ViewModel.ThirdMostPlaylist.NbPlaylistDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="9" Text="{x:Bind ViewModel.ThirdMostPlaylist.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        </Grid>
+                    </Grid>
+                </FlipViewItem>
+            </FlipView>
         </Grid>
     </Grid>
 </Page>

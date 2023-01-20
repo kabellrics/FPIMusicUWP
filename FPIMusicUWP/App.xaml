@@ -2,6 +2,7 @@
     x:Class="FPIMusicUWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FPIMusicUWP.Styles"
     >
 
     <Application.Resources>
@@ -15,6 +16,7 @@
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
                 <ResourceDictionary Source="/Styles/Image.xaml"/>
                 <ResourceDictionary Source="/Styles/Page.xaml"/>
+                <local:DataTemplates></local:DataTemplates>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
