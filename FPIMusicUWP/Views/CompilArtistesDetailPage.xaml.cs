@@ -27,7 +27,7 @@ namespace FPIMusicUWP.Views
         {
             base.OnNavigatedTo(e);
             await ViewModel.LoadDataAsync();
-            ViewModel.Initialize(e.Parameter as string, e.NavigationMode);
+            ViewModel.Initialize(int.Parse(e.Parameter.ToString()), e.NavigationMode);
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -35,7 +35,7 @@ namespace FPIMusicUWP.Views
             base.OnNavigatingFrom(e);
             if (e.NavigationMode == NavigationMode.Back)
             {
-                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(ViewModel.SelectedImage);
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(ViewModel.SelectedCompilArtiste);
                 ImagesNavigationHelper.RemoveImageId(CompilArtistesViewModel.CompilArtistesSelectedIdKey);
             }
         }

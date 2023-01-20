@@ -6,11 +6,47 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FPIMusicUWP.Core.Models"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     KeyDown="OnPageKeyDown"
     mc:Ignorable="d">
 
-    <Grid>
-        <FlipView
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="0">
+                <controls:ImageEx  PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                    AutomationProperties.Name="{x:Bind Name}"
+                                    ToolTipService.ToolTip="{x:Bind Name}"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{x:Bind ViewModel.SelectedCompilArtiste.DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+            </Viewbox>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="{x:Bind ViewModel.SelectedCompilArtiste.Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                <TextBlock Text="{x:Bind ViewModel.SelectedCompilArtiste.NbAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                <TextBlock Text="{x:Bind ViewModel.SelectedCompilArtiste.NbSongDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+            </StackPanel>
+        </Grid>
+        <!--<FlipView
             animations:Connected.Key="galleryAnimationKey"
             animations:Connected.AnchorElement="{Binding ElementName=detailImage}"
             ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
@@ -25,6 +61,6 @@
                     </Viewbox>
                 </DataTemplate>
             </FlipView.ItemTemplate>
-        </FlipView>
+        </FlipView>-->
     </Grid>
 </Page>

@@ -10,56 +10,66 @@ using FPIMusicUWP.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 using Windows.UI.Xaml.Navigation;
+using FPIMusicUWP.Services.Settings;
+using FPIMusicUWP.Services;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using FPIMusicUWP.ViewModels.ObservableObj.Mediatheque;
 
 namespace FPIMusicUWP.ViewModels
 {
     public class MediaAlbumsDetailViewModel : ObservableObject
     {
-        private object _selectedImage;
+        private ObsMediaAlbum _selectedMediaAlbum;
+        private IService _service;
+        private ISettingService _settingservice;
 
-        public object SelectedImage
+        public ObsMediaAlbum SelectedMediaAlbum
         {
-            get => _selectedImage;
+            get => _selectedMediaAlbum;
             set
             {
-                SetProperty(ref _selectedImage, value);
-                ImagesNavigationHelper.UpdateImageId(MediaAlbumsViewModel.MediaAlbumsSelectedIdKey, ((SampleImage)SelectedImage)?.ID);
+                SetProperty(ref _selectedMediaAlbum, value);
+                ImagesNavigationHelper.UpdateImageId(MediaAlbumsViewModel.MediaAlbumsSelectedIdKey, ((ObsMediaAlbum)SelectedMediaAlbum)?.Id.ToString());
             }
         }
 
-        public ObservableCollection<SampleImage> Source { get; } = new ObservableCollection<SampleImage>();
+        //public ObservableCollection<SampleImage> Source { get; } = new ObservableCollection<SampleImage>();
 
         public MediaAlbumsDetailViewModel()
         {
+            _service = Ioc.Default.GetRequiredService<IService>();
+            _settingservice = Ioc.Default.GetRequiredService<ISettingService>();
         }
 
         public async Task LoadDataAsync()
         {
-            Source.Clear();
+            //Source.Clear();
 
-            // Replace this with your actual data
-            var data = await SampleDataService.GetImageGalleryDataAsync("ms-appx:///Assets");
+            //// Replace this with your actual data
+            //var data = await SampleDataService.GetImageGalleryDataAsync("ms-appx:///Assets");
 
-            foreach (var item in data)
-            {
-                Source.Add(item);
-            }
+            //foreach (var item in data)
+            //{
+            //    Source.Add(item);
+            //}
         }
 
-        public void Initialize(string selectedImageID, NavigationMode navigationMode)
+        public async void Initialize(int selectedImageID, NavigationMode navigationMode)
         {
-            if (!string.IsNullOrEmpty(selectedImageID) && navigationMode == NavigationMode.New)
+            if (selectedImageID != -1 && navigationMode == NavigationMode.New)
             {
-                SelectedImage = Source.FirstOrDefault(i => i.ID == selectedImageID);
+                var items = await _service.Mediatheque.Albums.Albums();
+                var item = items.FirstOrDefault(x => x.Id == selectedImageID);
+                SelectedMediaAlbum = new ObsMediaAlbum(item, _settingservice.APIURLEndpoint);
             }
-            else
-            {
-                selectedImageID = ImagesNavigationHelper.GetImageId(MediaAlbumsViewModel.MediaAlbumsSelectedIdKey);
-                if (!string.IsNullOrEmpty(selectedImageID))
-                {
-                    SelectedImage = Source.FirstOrDefault(i => i.ID == selectedImageID);
-                }
-            }
+            //else
+            //{
+            //    selectedImageID = ImagesNavigationHelper.GetImageId(MediaAlbumsViewModel.MediaAlbumsSelectedIdKey);
+            //    if (!string.IsNullOrEmpty(selectedImageID))
+            //    {
+            //        SelectedImage = Source.FirstOrDefault(i => i.ID == selectedImageID);
+            //    }
+            //}
         }
     }
 }

@@ -62,10 +62,10 @@ namespace FPIMusicUWP.ViewModels
 
         private void OnItemSelected(ItemClickEventArgs args)
         {
-            //var selected = args.ClickedItem as SampleImage;
+            var selected = args.ClickedItem as ObsDeezerAlbum;
             //ImagesNavigationHelper.AddImageId(DeezerAlbumsSelectedIdKey, selected.ID);
-            //NavigationService.Frame.SetListDataItemForNextConnectedAnimation(selected);
-            //NavigationService.Navigate<DeezerAlbumsDetailPage>(selected.ID);
+            NavigationService.Frame.SetListDataItemForNextConnectedAnimation(selected);
+            NavigationService.Navigate<DeezerAlbumsDetailPage>(selected.Id);
         }
     }
 }

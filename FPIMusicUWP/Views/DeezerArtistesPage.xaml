@@ -21,11 +21,17 @@
     </Page.Resources>
     <Grid x:Name="ContentArea">
         <GridView x:Name="gridinzoom" ItemsSource="{x:Bind GroupsSource.View}"
+            IsItemClickEnabled="True"
                           ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollMode="Enabled"
         AutomationProperties.AutomationId="gridinzoom"
         AutomationProperties.Name="Grouped Items"
                   Margin="116,0,40,6"
                   ItemTemplate="{StaticResource DeezerArtisteTemplate}">
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="ItemClick">
+                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel Orientation="Horizontal"/>

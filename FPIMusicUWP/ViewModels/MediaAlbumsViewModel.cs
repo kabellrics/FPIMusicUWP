@@ -61,10 +61,10 @@ namespace FPIMusicUWP.ViewModels
 
         private void OnItemSelected(ItemClickEventArgs args)
         {
-            //var selected = args.ClickedItem as SampleImage;
+            var selected = args.ClickedItem as ObsMediaAlbum;
             //ImagesNavigationHelper.AddImageId(MediaAlbumsSelectedIdKey, selected.ID);
-            //NavigationService.Frame.SetListDataItemForNextConnectedAnimation(selected);
-            //NavigationService.Navigate<MediaAlbumsDetailPage>(selected.ID);
+            NavigationService.Frame.SetListDataItemForNextConnectedAnimation(selected);
+            NavigationService.Navigate<MediaAlbumsDetailPage>(selected.Id);
         }
     }
 }
