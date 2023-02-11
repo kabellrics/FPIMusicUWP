@@ -1,10 +1,10 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using FPIMusicUWP.Core.Models;
 using FPIMusicUWP.Helpers;
 using FPIMusicUWP.Services;
 using FPIMusicUWP.ViewModels;
-
+using FPIMusicUWP.ViewModels.ObservableObj.Compilation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Windows.System;
@@ -46,6 +46,18 @@ namespace FPIMusicUWP.Views
             {
                 NavigationService.GoBack();
                 e.Handled = true;
+            }
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (var selectedItem in e.AddedItems)
+            {
+                ViewModel.SelectedAlbSongs.Add(selectedItem as ObsCompilSong);
+            }
+            foreach (var unSelectedItem in e.RemovedItems)
+            {
+                ViewModel.SelectedAlbSongs.Remove(unSelectedItem as ObsCompilSong);
             }
         }
     }

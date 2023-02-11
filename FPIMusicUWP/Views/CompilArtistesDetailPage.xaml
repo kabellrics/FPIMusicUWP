@@ -13,6 +13,7 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="400"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -45,6 +46,46 @@
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
             </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <CommandBar HorizontalContentAlignment="Left" HorizontalAlignment="Left" IsOpen="False" DefaultLabelPosition="Right">
+                <AppBarButton Icon="Play"  Label="Lire Tout" Background="Green"/>
+                <AppBarButton Icon="Add"  Label="Ecouter Juste Après"/>
+                <AppBarButton Icon="Add" Label="Ajouter tous à la file d'attente"/>
+                <AppBarButton Icon="Add" Label="Ajouter tous à une liste de lecture"/>
+            </CommandBar>
+        </Grid>
+        <Grid Grid.Row="2">
+            <controls:DataGrid SelectionMode="Extended"
+                      ItemsSource="{x:Bind ViewModel.ArtSongs,Mode=OneWay}"
+                      SelectionChanged="DataGrid_SelectionChanged"
+                      AutoGenerateColumns="False"
+                      CanUserSortColumns="False"
+                      CanUserReorderColumns="False"
+                      CanUserResizeColumns="False"
+                      HeadersVisibility="None"
+                               RowHeight="50"
+                      >
+                <controls:DataGrid.Columns>
+                    <controls:DataGridCheckBoxColumn Header="Selected" Binding="{Binding Selected, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MaxWidth="50"/>
+                    <controls:DataGridTemplateColumn MaxWidth="50">
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Viewbox Stretch="Uniform" Grid.Column="0">
+                                    <controls:ImageEx  PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                                  IsCacheEnabled="True" Stretch="Fill"
+                                  Source="{Binding DisplayCover,Mode=OneWay}"
+                                  CornerRadius="60,60,60,60"/>
+                                </Viewbox>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+                    <!--<controls:DataGridTextColumn Header="Piste" Binding="{Binding Piste}"/>-->
+                    <controls:DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                    <controls:DataGridTextColumn Header="Artiste" Binding="{Binding Artiste}"/>
+                    <controls:DataGridTextColumn Header="Album" Binding="{Binding Album}"/>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
         </Grid>
         <!--<FlipView
             animations:Connected.Key="galleryAnimationKey"

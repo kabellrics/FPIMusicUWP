@@ -15,6 +15,7 @@ using FPIMusicUWP.Services;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.ViewModels.ObservableObj.Compilation;
 using FPIMusicUWP.ViewModels.ObservableObj.Mediatheque;
+using System.Windows.Input;
 
 namespace FPIMusicUWP.ViewModels
 {
@@ -34,7 +35,8 @@ namespace FPIMusicUWP.ViewModels
             }
         }
 
-        //public ObservableCollection<SampleImage> Source { get; } = new ObservableCollection<SampleImage>();
+        public ObservableCollection<ObsCompilSong> AlbSongs { get; } = new ObservableCollection<ObsCompilSong>();
+        public ObservableCollection<ObsCompilSong> SelectedAlbSongs { get; } = new ObservableCollection<ObsCompilSong>();
 
         public CompilAlbumDetailViewModel()
         {
@@ -62,6 +64,11 @@ namespace FPIMusicUWP.ViewModels
                 var items = await _service.Compilation.Albums.Albums();
                 var item = items.FirstOrDefault(x => x.Id == selectedImageID);
                 SelectedCompilAlbum = new ObsCompilAlbum(item, _settingservice.APIURLEndpoint);
+                var data = await _service.Compilation.Song.SongByAlbum(SelectedCompilAlbum.Id);
+                foreach (var song in data)
+                {
+                    AlbSongs.Add(new ObsCompilSong(song, _settingservice.APIURLEndpoint));
+                }
             }
             //else
             //{

@@ -7,6 +7,9 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.ViewModels.ObservableObj.Deezer;
 using FPIMusicUWP.ViewModels.ObservableObj.Compilation;
 using System.Linq;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
+using FPIMusicUWP.Views;
 
 namespace FPIMusicUWP.ViewModels
 {
@@ -14,6 +17,12 @@ namespace FPIMusicUWP.ViewModels
     {
         private IService _service;
         private ISettingService _settingservice;
+        private ICommand _SelectedFirstMostSongCommand;
+        private ICommand _SelectedSecondMostSongCommand;
+        private ICommand _SelectedThirdMostSongCommand;
+        private ICommand _SelectedFirstMostAlbumCommand;
+        private ICommand _SelectedSecondMostAlbumCommand;
+        private ICommand _SelectedThirdMostAlbumCommand;
 
         private ObsCompilArtiste _firstMostSong;
         private ObsCompilArtiste _secondMostSong;
@@ -70,10 +79,40 @@ namespace FPIMusicUWP.ViewModels
                 SetProperty(ref _thirdMostAlbum, value);
             }
         }
+        public ICommand ItemSelectedFirstSongCommand => _SelectedFirstMostSongCommand ?? (_SelectedFirstMostSongCommand = new RelayCommand(SelectedFirstMostSong));
+        public ICommand ItemSelectedSecondSongCommand => _SelectedSecondMostSongCommand ?? (_SelectedSecondMostSongCommand = new RelayCommand(SelectedSecondMostSong));
+        public ICommand ItemSelectedThirdSongCommand => _SelectedThirdMostSongCommand ?? (_SelectedThirdMostSongCommand = new RelayCommand(SelectedThirdMostSong));
+        public ICommand ItemSelectedFirstAlbumCommand => _SelectedFirstMostAlbumCommand ?? (_SelectedFirstMostAlbumCommand = new RelayCommand(SelectedFirstMostAlbum));
+        public ICommand ItemSelectedSecondAlbumCommand => _SelectedSecondMostAlbumCommand ?? (_SelectedSecondMostAlbumCommand = new RelayCommand(SelectedSecondMostAlbum));
+        public ICommand ItemSelectedThirdAlbumCommand => _SelectedThirdMostAlbumCommand ?? (_SelectedThirdMostAlbumCommand = new RelayCommand(SelectedThirdMostAlbum));
         public HomeCompilViewModel()
         {
             _service = Ioc.Default.GetRequiredService<IService>();
             _settingservice = Ioc.Default.GetRequiredService<ISettingService>();
+        }
+        private void SelectedFirstMostSong()
+        {
+            NavigationService.Navigate<CompilArtistesDetailPage>(FirstMostSong.Id);
+        }
+        private void SelectedSecondMostSong()
+        {
+            NavigationService.Navigate<CompilArtistesDetailPage>(SecondMostSong.Id);
+        }
+        private void SelectedThirdMostSong()
+        {
+            NavigationService.Navigate<CompilArtistesDetailPage>(ThirdMostSong.Id);
+        }
+        private void SelectedFirstMostAlbum()
+        {
+            NavigationService.Navigate<CompilArtistesDetailPage>(FirstMostAlbum.Id);
+        }
+        private void SelectedSecondMostAlbum()
+        {
+            NavigationService.Navigate<CompilArtistesDetailPage>(SecondMostAlbum.Id);
+        }
+        private void SelectedThirdMostAlbum()
+        {
+            NavigationService.Navigate<CompilArtistesDetailPage>(ThirdMostAlbum.Id);
         }
         public async Task InitializeAsync()
         {

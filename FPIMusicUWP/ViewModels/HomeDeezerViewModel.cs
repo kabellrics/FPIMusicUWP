@@ -7,6 +7,9 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.ViewModels.ObservableObj.Mediatheque;
 using FPIMusicUWP.ViewModels.ObservableObj.Deezer;
 using System.Linq;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
+using FPIMusicUWP.Views;
 
 namespace FPIMusicUWP.ViewModels
 {
@@ -14,6 +17,15 @@ namespace FPIMusicUWP.ViewModels
     {
         private IService _service;
         private ISettingService _settingservice;
+        private ICommand _SelectedFirstMostSongCommand;
+        private ICommand _SelectedSecondMostSongCommand;
+        private ICommand _SelectedThirdMostSongCommand;
+        private ICommand _SelectedFirstMostAlbumCommand;
+        private ICommand _SelectedSecondMostAlbumCommand;
+        private ICommand _SelectedThirdMostAlbumCommand;
+        private ICommand _SelectedFirstMostPlaylistCommand;
+        private ICommand _SelectedSecondMostPlaylistCommand;
+        private ICommand _SelectedThirdMostPlaylistCommand;
 
         private ObsDeezerArtiste _firstMostSong;
         private ObsDeezerArtiste _secondMostSong;
@@ -97,10 +109,55 @@ namespace FPIMusicUWP.ViewModels
                 SetProperty(ref _thirdMostPlaylist, value);
             }
         }
+        public ICommand ItemSelectedFirstSongCommand => _SelectedFirstMostSongCommand ?? (_SelectedFirstMostSongCommand = new RelayCommand(SelectedFirstMostSong));
+        public ICommand ItemSelectedSecondSongCommand => _SelectedSecondMostSongCommand ?? (_SelectedSecondMostSongCommand = new RelayCommand(SelectedSecondMostSong));
+        public ICommand ItemSelectedThirdSongCommand => _SelectedThirdMostSongCommand ?? (_SelectedThirdMostSongCommand = new RelayCommand(SelectedThirdMostSong));
+        public ICommand ItemSelectedFirstAlbumCommand => _SelectedFirstMostAlbumCommand ?? (_SelectedFirstMostAlbumCommand = new RelayCommand(SelectedFirstMostAlbum));
+        public ICommand ItemSelectedSecondAlbumCommand => _SelectedSecondMostAlbumCommand ?? (_SelectedSecondMostAlbumCommand = new RelayCommand(SelectedSecondMostAlbum));
+        public ICommand ItemSelectedThirdAlbumCommand => _SelectedThirdMostAlbumCommand ?? (_SelectedThirdMostAlbumCommand = new RelayCommand(SelectedThirdMostAlbum));
+        public ICommand ItemSelectedFirstPlaylistCommand => _SelectedFirstMostPlaylistCommand ?? (_SelectedFirstMostPlaylistCommand = new RelayCommand(SelectedFirstMostPlaylist));
+        public ICommand ItemSelectedSecondPlaylistCommand => _SelectedSecondMostPlaylistCommand ?? (_SelectedSecondMostPlaylistCommand = new RelayCommand(SelectedSecondMostPlaylist));
+        public ICommand ItemSelectedThirdPlaylistCommand => _SelectedThirdMostPlaylistCommand ?? (_SelectedThirdMostPlaylistCommand = new RelayCommand(SelectedThirdMostPlaylist));
         public HomeDeezerViewModel()
         {
             _service = Ioc.Default.GetRequiredService<IService>();
             _settingservice = Ioc.Default.GetRequiredService<ISettingService>();
+        }
+        private void SelectedFirstMostSong()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(FirstMostSong.Id);
+        }
+        private void SelectedSecondMostSong()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(SecondMostSong.Id);
+        }
+        private void SelectedThirdMostSong()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(ThirdMostSong.Id);
+        }
+        private void SelectedFirstMostAlbum()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(FirstMostAlbum.Id);
+        }
+        private void SelectedSecondMostAlbum()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(SecondMostAlbum.Id);
+        }
+        private void SelectedThirdMostAlbum()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(ThirdMostAlbum.Id);
+        }
+        private void SelectedFirstMostPlaylist()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(FirstMostPlaylist.Id);
+        }
+        private void SelectedSecondMostPlaylist()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(SecondMostPlaylist.Id);
+        }
+        private void SelectedThirdMostPlaylist()
+        {
+            NavigationService.Navigate<DeezerArtistesDetailPage>(ThirdMostPlaylist.Id);
         }
         public async Task InitializeAsync()
         {

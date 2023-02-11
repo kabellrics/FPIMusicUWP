@@ -34,7 +34,8 @@ namespace FPIMusicUWP.ViewModels
             }
         }
 
-        //public ObservableCollection<SampleImage> Source { get; } = new ObservableCollection<SampleImage>();
+        public ObservableCollection<ObsDeezerSong> Songs { get; } = new ObservableCollection<ObsDeezerSong>();
+        public ObservableCollection<ObsDeezerSong> SelectedSongs { get; } = new ObservableCollection<ObsDeezerSong>();
 
         public DeezerAlbumsDetailViewModel()
         {
@@ -62,6 +63,11 @@ namespace FPIMusicUWP.ViewModels
                 var items = await _service.Deezer.Albums.Albums();
                 var item = items.FirstOrDefault(x => x.Id == selectedImageID);
                 SelectedDeezerAlbum = new ObsDeezerAlbum(item, _settingservice.APIURLEndpoint);
+                var data = await _service.Deezer.Songs.SongByAlbum(SelectedDeezerAlbum.Id);
+                foreach (var song in data)
+                {
+                    Songs.Add(new ObsDeezerSong(song, _settingservice.APIURLEndpoint));
+                }
             }
             //else
             //{

@@ -37,12 +37,15 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
-                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill" 
+                            <Button Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedFirstAlbumCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill" 
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.FirstMostAlbum.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="1" Grid.Row="4" Text="{x:Bind ViewModel.FirstMostAlbum.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -59,12 +62,15 @@
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3">
-                                <controls:ImageEx  PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                            <Button Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedSecondAlbumCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx  PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.SecondMostAlbum.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="0" Grid.Row="5" Text="{x:Bind ViewModel.SecondMostAlbum.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -81,12 +87,15 @@
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                            <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="3" Grid.RowSpan="3">
-                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                            <Button Grid.Column="2" Grid.Row="3" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedThirdAlbumCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.ThirdMostAlbum.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="2" Grid.Row="6" Text="{x:Bind ViewModel.ThirdMostAlbum.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -131,12 +140,15 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
-                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                            <Button Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedFirstSongCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.FirstMostSong.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="1" Grid.Row="4" Text="{x:Bind ViewModel.FirstMostSong.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -153,12 +165,15 @@
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3">
-                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                            <Button Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedSecondSongCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.SecondMostSong.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="0" Grid.Row="5" Text="{x:Bind ViewModel.SecondMostSong.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -175,12 +190,15 @@
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                            <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="3" Grid.RowSpan="3">
-                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                            <Button Grid.Column="2" Grid.Row="3" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedThirdSongCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.ThirdMostSong.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="2" Grid.Row="6" Text="{x:Bind ViewModel.ThirdMostSong.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -226,12 +244,15 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
-                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                            <Button Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedFirstPlaylistCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.FirstMostPlaylist.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="1" Grid.Row="4" Text="{x:Bind ViewModel.FirstMostPlaylist.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -248,12 +269,15 @@
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3">
-                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                            <Button Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedSecondPlaylistCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.SecondMostPlaylist.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="0" Grid.Row="5" Text="{x:Bind ViewModel.SecondMostPlaylist.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -270,12 +294,15 @@
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                            <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="3" Grid.RowSpan="3">
-                                <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
+                            <Button Grid.Column="2" Grid.Row="3" Grid.RowSpan="3" Style="{StaticResource ButtonCleanStyle}"
+                                    Command="{x:Bind ViewModel.ItemSelectedThirdPlaylistCommand}">
+                                <Viewbox Stretch="Uniform">
+                                    <controls:ImageEx PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind ViewModel.ThirdMostPlaylist.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Button>
                             <TextBlock Grid.Column="2" Grid.Row="6" Text="{x:Bind ViewModel.ThirdMostPlaylist.Name,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"

@@ -242,11 +242,14 @@
     <Compile Include="ViewModels\MediaArtistesViewModel.cs" />
     <Compile Include="ViewModels\ObservableObj\Compilation\ObsCompilAlbum.cs" />
     <Compile Include="ViewModels\ObservableObj\Compilation\ObsCompilArtiste.cs" />
+    <Compile Include="ViewModels\ObservableObj\Compilation\ObsCompilSong.cs" />
     <Compile Include="ViewModels\ObservableObj\Deezer\ObsDeezerAlbum.cs" />
     <Compile Include="ViewModels\ObservableObj\Deezer\ObsDeezerArtiste.cs" />
     <Compile Include="ViewModels\ObservableObj\Deezer\ObsDeezerPlaylist.cs" />
+    <Compile Include="ViewModels\ObservableObj\Deezer\ObsDeezerSong.cs" />
     <Compile Include="ViewModels\ObservableObj\Mediatheque\ObsMediaAlbum.cs" />
     <Compile Include="ViewModels\ObservableObj\Mediatheque\ObsMediaArtiste.cs" />
+    <Compile Include="ViewModels\ObservableObj\Mediatheque\ObsMediaSong.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

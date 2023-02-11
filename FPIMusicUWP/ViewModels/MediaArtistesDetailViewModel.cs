@@ -14,6 +14,7 @@ using FPIMusicUWP.Services.Settings;
 using FPIMusicUWP.Services;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.ViewModels.ObservableObj.Mediatheque;
+using FPIMusicUWP.ViewModels.ObservableObj.Compilation;
 
 namespace FPIMusicUWP.ViewModels
 {
@@ -33,6 +34,8 @@ namespace FPIMusicUWP.ViewModels
             }
         }
 
+        public ObservableCollection<ObsMediaAlbum> Albums { get; } = new ObservableCollection<ObsMediaAlbum>();
+        public ObservableCollection<ObsMediaAlbum> SelectedAlbums { get; } = new ObservableCollection<ObsMediaAlbum>();
         public MediaArtistesDetailViewModel()
         {
             _service = Ioc.Default.GetRequiredService<IService>();
@@ -59,6 +62,11 @@ namespace FPIMusicUWP.ViewModels
                 var items = await _service.Mediatheque.Artistes.Artistes();
                 var item = items.FirstOrDefault(x=>x.Id == selectedImageID);
                 SelectedMediaArtiste =new ObsMediaArtiste(item,_settingservice.APIURLEndpoint);
+                var data = await _service.Mediatheque.Albums.AlbumByArtiste(SelectedMediaArtiste.Id);
+                foreach (var alb in data)
+                {
+                    Albums.Add(new ObsMediaAlbum(alb, _settingservice.APIURLEndpoint));
+                }
             }
             //else
             //{

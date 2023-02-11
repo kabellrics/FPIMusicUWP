@@ -4,7 +4,7 @@ using FPIMusicUWP.Core.Models;
 using FPIMusicUWP.Helpers;
 using FPIMusicUWP.Services;
 using FPIMusicUWP.ViewModels;
-
+using FPIMusicUWP.ViewModels.ObservableObj.Mediatheque;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Windows.System;
@@ -46,6 +46,18 @@ namespace FPIMusicUWP.Views
             {
                 NavigationService.GoBack();
                 e.Handled = true;
+            }
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (var selectedItem in e.AddedItems)
+            {
+                ViewModel.SelectedSongs.Add(selectedItem as ObsMediaSong);
+            }
+            foreach (var unSelectedItem in e.RemovedItems)
+            {
+                ViewModel.SelectedSongs.Remove(unSelectedItem as ObsMediaSong);
             }
         }
     }
