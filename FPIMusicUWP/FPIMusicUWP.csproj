@@ -176,7 +176,10 @@
     <Compile Include="Core\Model\MediathequeAlbum.cs" />
     <Compile Include="Core\Model\MediathequeArtiste.cs" />
     <Compile Include="Core\Model\MediathequeSong.cs" />
+    <Compile Include="Core\Model\PlayerListStatus.cs" />
+    <Compile Include="Core\Model\Song.cs" />
     <Compile Include="Core\Model\SongType.cs" />
+    <Compile Include="Core\PlayerClient.cs" />
     <Compile Include="Core\ScannerClient.cs" />
     <Compile Include="Core\SettingsClient.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
@@ -217,6 +220,8 @@
     <Compile Include="Services\Mediatheque\Interface\IMediaSongService.cs" />
     <Compile Include="Services\Mediatheque\MediaService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\Player\IPlayerService.cs" />
+    <Compile Include="Services\Player\PlayerService.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\Settings\ISettingService.cs" />
     <Compile Include="Services\Settings\SettingService.cs" />
@@ -250,6 +255,8 @@
     <Compile Include="ViewModels\ObservableObj\Mediatheque\ObsMediaAlbum.cs" />
     <Compile Include="ViewModels\ObservableObj\Mediatheque\ObsMediaArtiste.cs" />
     <Compile Include="ViewModels\ObservableObj\Mediatheque\ObsMediaSong.cs" />
+    <Compile Include="ViewModels\ObservableObj\ObsPlayerListStatus.cs" />
+    <Compile Include="ViewModels\ObservableObj\ObsSong.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

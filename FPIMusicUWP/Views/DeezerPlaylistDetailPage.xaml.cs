@@ -4,7 +4,7 @@ using FPIMusicUWP.Core.Models;
 using FPIMusicUWP.Helpers;
 using FPIMusicUWP.Services;
 using FPIMusicUWP.ViewModels;
-using FPIMusicUWP.ViewModels.ObservableObj.Deezer;
+using FPIMusicUWP.ViewModels.ObservableObj;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Windows.System;
@@ -54,11 +54,11 @@ namespace FPIMusicUWP.Views
 
             foreach (var selectedItem in e.AddedItems)
             {
-                ViewModel.SelectedSongs.Add(selectedItem as ObsDeezerSong);
+                ViewModel.SelectedSongs.Add(selectedItem as ObsSong);
             }
             foreach (var unSelectedItem in e.RemovedItems)
             {
-                ViewModel.SelectedSongs.Remove(unSelectedItem as ObsDeezerSong);
+                ViewModel.SelectedSongs.Remove(unSelectedItem as ObsSong);
             }
         }
     }

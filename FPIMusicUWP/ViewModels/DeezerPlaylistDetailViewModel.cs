@@ -14,7 +14,7 @@ using FPIMusicUWP.Services.Settings;
 using FPIMusicUWP.Services;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.ViewModels.ObservableObj.Deezer;
-using FPIMusicUWP.ViewModels.ObservableObj.Compilation;
+using FPIMusicUWP.ViewModels.ObservableObj;
 
 namespace FPIMusicUWP.ViewModels
 {
@@ -34,8 +34,8 @@ namespace FPIMusicUWP.ViewModels
             }
         }
 
-        public ObservableCollection<ObsDeezerSong> Songs { get; } = new ObservableCollection<ObsDeezerSong>();
-        public ObservableCollection<ObsDeezerSong> SelectedSongs { get; } = new ObservableCollection<ObsDeezerSong>();
+        public ObservableCollection<ObsSong> Songs { get; } = new ObservableCollection<ObsSong>();
+        public ObservableCollection<ObsSong> SelectedSongs { get; } = new ObservableCollection<ObsSong>();
 
         public DeezerPlaylistDetailViewModel()
         {
@@ -66,7 +66,7 @@ namespace FPIMusicUWP.ViewModels
                 var data = await _service.Deezer.Songs.SongByPlaylist(SelectedDeezerPlaylist.Id);
                 foreach (var song in data)
                 {
-                    Songs.Add(new ObsDeezerSong(song, _settingservice.APIURLEndpoint));
+                    Songs.Add(new ObsSong(song, _settingservice.APIURLEndpoint));
                 }
             }
             //else

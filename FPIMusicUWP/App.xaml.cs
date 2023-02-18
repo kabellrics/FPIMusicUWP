@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using FPIMusicUWP.Services.Player;
 
 namespace FPIMusicUWP
 {
@@ -44,6 +45,7 @@ namespace FPIMusicUWP
                new ServiceCollection()
                .AddSingleton<ISettingService,SettingService>()
                .AddSingleton<IService, Service>()
+               .AddSingleton<IPlayerService, PlayerService>()
                .BuildServiceProvider());
         }
 

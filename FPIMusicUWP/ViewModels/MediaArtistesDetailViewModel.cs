@@ -14,7 +14,7 @@ using FPIMusicUWP.Services.Settings;
 using FPIMusicUWP.Services;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.ViewModels.ObservableObj.Mediatheque;
-using FPIMusicUWP.ViewModels.ObservableObj.Compilation;
+using FPIMusicUWP.ViewModels.ObservableObj;
 
 namespace FPIMusicUWP.ViewModels
 {

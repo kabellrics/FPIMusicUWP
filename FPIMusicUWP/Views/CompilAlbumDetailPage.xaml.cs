@@ -4,7 +4,7 @@ using FPIMusicUWP.Core.Models;
 using FPIMusicUWP.Helpers;
 using FPIMusicUWP.Services;
 using FPIMusicUWP.ViewModels;
-using FPIMusicUWP.ViewModels.ObservableObj.Compilation;
+using FPIMusicUWP.ViewModels.ObservableObj;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Windows.System;
@@ -53,11 +53,11 @@ namespace FPIMusicUWP.Views
         {
             foreach (var selectedItem in e.AddedItems)
             {
-                ViewModel.SelectedAlbSongs.Add(selectedItem as ObsCompilSong);
+                ViewModel.SelectedAlbSongs.Add(selectedItem as ObsSong);
             }
             foreach (var unSelectedItem in e.RemovedItems)
             {
-                ViewModel.SelectedAlbSongs.Remove(unSelectedItem as ObsCompilSong);
+                ViewModel.SelectedAlbSongs.Remove(unSelectedItem as ObsSong);
             }
         }
     }
