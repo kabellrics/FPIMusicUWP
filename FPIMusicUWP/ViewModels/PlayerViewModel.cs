@@ -67,21 +67,26 @@ namespace FPIMusicUWP.ViewModels
             _settingservice = Ioc.Default.GetRequiredService<ISettingService>();
             _playerservice = Ioc.Default.GetRequiredService<IPlayerService>();
 
+            InitSignalR();
+        }
+
+        private void InitSignalR()
+        {
             connection = new HubConnectionBuilder()
                 .WithUrl(new Uri($"{_settingservice.APIURLEndpoint}/synchro"))
                 .WithAutomaticReconnect()
                 .Build();
-            connection.StartAsync();
             SignalRMsgTraitement();
         }
 
-        private void SignalRMsgTraitement()
+        private async void SignalRMsgTraitement()
         {
             //connection.On("Synchro", (Func<string, Task>)(async (message) =>
             connection.On<string>("Synchro", async (message)=>
             {
                 await GetStatus();
             });
+            await connection.StartAsync();
         }
 
         private async Task GetStatus()
@@ -92,14 +97,17 @@ namespace FPIMusicUWP.ViewModels
                 IsShuffle = status.IsShuffle;
                 Pausing = status.Pausing;
                 Playing = status.Playing;
-                var currentsg = new Song();
-                if (status.CurrentSong.SongType == SongType._0)
-                    currentsg = await _service.Mediatheque.Song.Song(status.CurrentSong.Id);
-                else if (status.CurrentSong.SongType == SongType._1)
-                    currentsg = await _service.Compilation.Song.Song(status.CurrentSong.Id);
-                else if (status.CurrentSong.SongType == SongType._2)
-                    currentsg = await _service.Deezer.Songs.Song(status.CurrentSong.Id);
-                Song = new ObsSong(currentsg, _settingservice.APIURLEndpoint);
+                if (status.CurrentSong != null)
+                {
+                    var currentsg = new Song();
+                    if (status.CurrentSong.SongType == SongType._0)
+                        currentsg = await _service.Mediatheque.Song.Song(status.CurrentSong.Id);
+                    else if (status.CurrentSong.SongType == SongType._1)
+                        currentsg = await _service.Compilation.Song.Song(status.CurrentSong.Id);
+                    else if (status.CurrentSong.SongType == SongType._2)
+                        currentsg = await _service.Deezer.Songs.Song(status.CurrentSong.Id);
+                    Song = new ObsSong(currentsg, _settingservice.APIURLEndpoint); 
+                }
                 PreviousSong.Clear();
                 NextSong.Clear();
                 foreach (var sg in status.SongAlreadyPlay)
