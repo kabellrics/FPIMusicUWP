@@ -14,6 +14,8 @@ using FPIMusicUWP.Services.Player;
 using System.Threading.Tasks;
 using FPIMusicUWP.Core.ModelDTO;
 using FPIMusicUWP.Core.Model;
+using CommunityToolkit.Mvvm.Messaging;
+using Windows.UI.Core;
 
 namespace FPIMusicUWP.ViewModels
 {
@@ -66,30 +68,27 @@ namespace FPIMusicUWP.ViewModels
             _service = Ioc.Default.GetRequiredService<IService>();
             _settingservice = Ioc.Default.GetRequiredService<ISettingService>();
             _playerservice = Ioc.Default.GetRequiredService<IPlayerService>();
-
-            InitSignalR();
-        }
-
-        private void InitSignalR()
-        {
-            connection = new HubConnectionBuilder()
-                .WithUrl(new Uri($"{_settingservice.APIURLEndpoint}/synchro"))
-                .WithAutomaticReconnect()
-                .Build();
             SignalRMsgTraitement();
         }
 
         private async void SignalRMsgTraitement()
         {
-            //connection.On("Synchro", (Func<string, Task>)(async (message) =>
-            connection.On<string>("Synchro", async (message)=>
+            WeakReferenceMessenger.Default.Register<PlayerInfoChangedMessage>(this, (r, m) =>
             {
-                await GetStatus();
+               //Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+               //     () =>
+               //     {
+               //         GetStatus();
+               //     });
+                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    GetStatus();
+                });
             });
-            await connection.StartAsync();
         }
-
-        private async Task GetStatus()
+        private async void GetStatus() { await GetStatusAsync(); }
+        private async Task GetStatusAsync()
         {
             var status = await _playerservice.Status();
             if (status != null)
@@ -123,7 +122,7 @@ namespace FPIMusicUWP.ViewModels
 
         public async Task LoadDataAsync()
         {
-            await GetStatus();
+            GetStatus();
         }
     }
 }

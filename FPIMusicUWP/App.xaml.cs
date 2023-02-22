@@ -7,6 +7,10 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using FPIMusicUWP.Services.Player;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
+using CommunityToolkit.Mvvm.Messaging;
+using FPIMusicUWP.Core.Model;
 
 namespace FPIMusicUWP
 {
@@ -47,6 +51,24 @@ namespace FPIMusicUWP
                .AddSingleton<IService, Service>()
                .AddSingleton<IPlayerService, PlayerService>()
                .BuildServiceProvider());
+
+
+            var _settingservice = Ioc.Default.GetRequiredService<ISettingService>();
+            var connection = new HubConnectionBuilder()
+                .WithUrl(new Uri($"{_settingservice.APIURLEndpoint}/synchro"))
+                .WithAutomaticReconnect()
+                .ConfigureLogging(logging =>
+                {
+                    //logging.AddConsole();
+                    // This will set ALL logging to Debug level
+                    logging.SetMinimumLevel(LogLevel.Debug);
+                })
+                .Build();
+            connection.On<string>("Synchro", message =>
+            {
+                WeakReferenceMessenger.Default.Send(new PlayerInfoChangedMessage(message));
+            });
+            await connection.StartAsync();
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)

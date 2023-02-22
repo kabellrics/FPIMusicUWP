@@ -179,6 +179,7 @@
     <Compile Include="Core\Model\MediathequeAlbum.cs" />
     <Compile Include="Core\Model\MediathequeArtiste.cs" />
     <Compile Include="Core\Model\MediathequeSong.cs" />
+    <Compile Include="Core\Model\PlayerInfoChangedMessage.cs" />
     <Compile Include="Core\Model\PlayerListStatus.cs" />
     <Compile Include="Core\Model\Song.cs" />
     <Compile Include="Core\Model\SongType.cs" />
