@@ -14,5 +14,6 @@ namespace FPIMusicUWP.Services.Player
         Task Previous();
         Task<PlayerListStatus> Status();
         Task Stop();
+        Task Volume(int volume);
     }
 }

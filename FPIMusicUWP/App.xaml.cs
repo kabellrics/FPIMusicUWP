@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Mvvm.Messaging;
 using FPIMusicUWP.Core.Model;
+using FPIMusicUWP.ViewModels;
 
 namespace FPIMusicUWP
 {
@@ -50,6 +51,13 @@ namespace FPIMusicUWP
                .AddSingleton<ISettingService,SettingService>()
                .AddSingleton<IService, Service>()
                .AddSingleton<IPlayerService, PlayerService>()
+               .AddSingleton<CompilAlbumDetailViewModel>()
+               .AddSingleton<CompilArtistesDetailViewModel>()
+               .AddSingleton<DeezerArtistesDetailViewModel>()
+               .AddSingleton<DeezerAlbumsDetailViewModel>()
+               .AddSingleton<DeezerPlaylistDetailViewModel>()
+               .AddSingleton<MediaAlbumsDetailViewModel>()
+               .AddSingleton<MediaArtistesDetailViewModel>()
                .BuildServiceProvider());
 
 

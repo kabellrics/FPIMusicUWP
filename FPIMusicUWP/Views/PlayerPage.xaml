@@ -27,6 +27,71 @@
                                   Source="{x:Bind ViewModel.Song.DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
                 </Viewbox>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Text="{x:Bind ViewModel.Song.Title,Mode=OneWay}"
+                                   Foreground="WhiteSmoke" FontSize="65"
+                                   HorizontalAlignment="Center" HorizontalTextAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Text="{x:Bind ViewModel.ArtisteAlbumLabel,Mode=OneWay}"
+                                   Foreground="WhiteSmoke" FontSize="45"
+                                   HorizontalAlignment="Left" HorizontalTextAlignment="Left"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource ButtonCleanStyle}">
+                            <Image Source="/Assets/Player/loop.png"/>
+                        </Button>
+                        <Button Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource ButtonCleanStyle}" Command="{x:Bind ViewModel.PreviousCommand}">
+                            <Image Source="/Assets/Player/back.png"/>
+                        </Button>
+                        <Button Grid.Column="2" HorizontalAlignment="Center" Style="{StaticResource ButtonCleanStyle}" Command="{x:Bind ViewModel.PlayPauseCommand}">
+                            <Image Source="/Assets/Player/play.png"/>
+                        </Button>
+                        <Button Grid.Column="3" HorizontalAlignment="Center" Style="{StaticResource ButtonCleanStyle}" Command="{x:Bind ViewModel.StopCommand}">
+                            <Image Source="/Assets/Player/stop.png"/>
+                        </Button>
+                        <Button Grid.Column="4" HorizontalAlignment="Center" Style="{StaticResource ButtonCleanStyle}" Command="{x:Bind ViewModel.NextCommand}">
+                            <Image Source="/Assets/Player/next.png"/>
+                        </Button>
+                        <Button Grid.Column="5" HorizontalAlignment="Center" Style="{StaticResource ButtonCleanStyle}">
+                            <Image Source="/Assets/Player/shuffle.png"/>
+                        </Button>
+                        <Slider Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" TickFrequency="5" TickPlacement="BottomRight" Maximum="100" Minimum="0" Value="{x:Bind ViewModel.Volume,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource ButtonCleanStyle}" Command="{x:Bind ViewModel.VolumeDownCommand}">
+                            <Image Source="/Assets/Player/soundminus.png"/>
+                        </Button>
+                        <Button Grid.Column="5" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource ButtonCleanStyle}" Command="{x:Bind ViewModel.VolumeUpCommand}">
+                            <Image Source="/Assets/Player/soundplus.png"/>
+                        </Button>
+                    </Grid>
+                </Grid>
             </Grid>
             <!--
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 

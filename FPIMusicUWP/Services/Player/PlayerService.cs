@@ -38,6 +38,7 @@ namespace FPIMusicUWP.Services.Player
         public async Task Stop() { await PlayerConnector.StopAsync(); }
         public async Task Pause() { await PlayerConnector.PauseAsync(); }
         public async Task Play() { await PlayerConnector.PlayAsync(); }
+        public async Task Volume(int volume) { await PlayerConnector.VolumeAsync(volume); }
         public async Task<PlayerListStatus> Status() { return await PlayerConnector.StatusAsync(); }
     }
 }

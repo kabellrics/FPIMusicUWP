@@ -49,14 +49,18 @@
         </Grid>
         <Grid Grid.Row="1">
             <CommandBar HorizontalContentAlignment="Left" HorizontalAlignment="Left" IsOpen="False" DefaultLabelPosition="Right">
-                <AppBarButton Icon="Play"  Label="Lire Tout" Background="Green"/>
-                <AppBarButton Icon="Add"  Label="Ecouter Juste Après"/>
-                <AppBarButton Icon="Add" Label="Ajouter tous à la file d'attente"/>
-                <AppBarButton Icon="Add" Label="Ajouter tous à une liste de lecture"/>
+                <AppBarButton Icon="Play"  Label="Lire Tout" Background="Green" Command="{x:Bind ViewModel.PlayCommand}"/>
+                <AppBarButton Icon="Add"  Label="Ecouter Juste Après" Command="{x:Bind ViewModel.PrioritizeCommand}"/>
+                <AppBarButton Icon="Add" Label="Ajouter à la file d'attente" Command="{x:Bind ViewModel.AddToPlayCommand}"/>
+                <AppBarButton Icon="Add" Label="Ajouter à une liste de lecture"/>
+                <AppBarButton Icon="Accept" Label="Tous Cocher/Décocher" Command="{x:Bind ViewModel.SelectAllCommand}"/>
             </CommandBar>
         </Grid>
         <Grid Grid.Row="2">
-            <controls:DataGrid SelectionMode="Extended"
+            <ListView
+                      ItemsSource="{x:Bind ViewModel.Songs,Mode=OneWay}" ItemTemplate="{StaticResource SongTemplate}">
+            </ListView>
+            <!--<controls:DataGrid SelectionMode="Extended"
                       ItemsSource="{x:Bind ViewModel.AlbSongs,Mode=OneWay}"
                       SelectionChanged="ListView_SelectionChanged"
                       AutoGenerateColumns="False"
@@ -85,7 +89,7 @@
                     <controls:DataGridTextColumn Header="Artiste" Binding="{Binding Artiste}"/>
                     <controls:DataGridTextColumn Header="Album" Binding="{Binding Album}"/>
                 </controls:DataGrid.Columns>
-            </controls:DataGrid>
+            </controls:DataGrid>-->
         </Grid>
         <!--<FlipView
             animations:Connected.Key="galleryAnimationKey"

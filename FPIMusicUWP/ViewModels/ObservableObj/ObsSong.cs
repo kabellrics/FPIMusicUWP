@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FPIMusicUWP.Core.Model;
 using FPIMusicUWP.Core.ModelDTO;
 using System;
@@ -6,6 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
+using System.Windows.Input;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
 namespace FPIMusicUWP.ViewModels.ObservableObj
@@ -15,11 +20,22 @@ namespace FPIMusicUWP.ViewModels.ObservableObj
         public Song Song;
         private string apiUrl;
         private bool _selected;
+        private string _ArtisteAlbumDisplay;
+        private int _defilement;
+        private ICommand _isSelectedCommand;
+        public ICommand IsSelectedCommand => _isSelectedCommand ?? (_isSelectedCommand = new RelayCommand<ItemClickEventArgs>(OnSelected));
+
+        private void OnSelected(ItemClickEventArgs obj)
+        {
+            Selected = !Selected;
+        }
+
         public ObsSong(Song sg, string Url)
         {
             Song = sg;
             apiUrl = Url;
             Selected = false;
+            ArtisteAlbumDisplay = $"{Song.Artiste} - {Song.Album}";
         }
         public bool Selected
         {
@@ -59,6 +75,43 @@ namespace FPIMusicUWP.ViewModels.ObservableObj
             get => Song.Album;
             set => SetProperty(Song.Album, value, Song, (syteme, item) => Song.Title = item);
         }
+        public string ArtisteAlbumDisplay
+        {
+
+            get => _ArtisteAlbumDisplay;
+            set
+            {
+                SetProperty(ref _ArtisteAlbumDisplay, value);
+                //if (value.Length > 50)
+                //{
+                //    _defilement = 0;
+                //    SetDefilement();
+                //}
+            }
+        }
+
+        private void SetDefilement()
+        {
+            Timer timer = new Timer();
+            timer.Interval = 175;
+            timer.Elapsed += Timer_Elapsed; ;
+            timer.Start();
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                if (_defilement == Song.Artiste.Length + Song.Album.Length)
+                    _defilement = 0;
+                if (_defilement < (Song.Artiste.Length + Song.Album.Length) - 60)
+                    ArtisteAlbumDisplay = $"{Song.Artiste} - {Song.Album}".Substring(_defilement++, 60);
+                else
+                    ArtisteAlbumDisplay = $"{Song.Artiste} - {Song.Album}".Substring(_defilement++);
+            });
+        }
+
         public string DisplayCover
         {
             //get => Path.Combine(apiUrl, "api/Img/CompilArt", Album.Id.ToString());

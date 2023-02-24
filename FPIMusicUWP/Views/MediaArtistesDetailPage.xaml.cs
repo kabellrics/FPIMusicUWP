@@ -1,5 +1,5 @@
 ﻿using System;
-
+using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.Core.Models;
 using FPIMusicUWP.Helpers;
 using FPIMusicUWP.Services;
@@ -16,7 +16,7 @@ namespace FPIMusicUWP.Views
 {
     public sealed partial class MediaArtistesDetailPage : Page
     {
-        public MediaArtistesDetailViewModel ViewModel { get; } = new MediaArtistesDetailViewModel();
+        public MediaArtistesDetailViewModel ViewModel { get; set; }// = new MediaArtistesDetailViewModel();
 
         public MediaArtistesDetailPage()
         {
@@ -26,7 +26,8 @@ namespace FPIMusicUWP.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await ViewModel.LoadDataAsync();
+            ViewModel = Ioc.Default.GetRequiredService<MediaArtistesDetailViewModel>();
+            //await ViewModel.LoadDataAsync();
             ViewModel.Initialize(int.Parse(e.Parameter.ToString()), e.NavigationMode);
         }
 

@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FPIMusicUWP.ViewModels.ObservableObj.Mediatheque"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -51,8 +53,9 @@
             <CommandBar HorizontalContentAlignment="Left" HorizontalAlignment="Left" IsOpen="False" DefaultLabelPosition="Right">
                 <AppBarButton Icon="Play"  Label="Lire Tout" Background="Green"/>
                 <AppBarButton Icon="Add"  Label="Ecouter Juste Après"/>
-                <AppBarButton Icon="Add" Label="Ajouter tous à la file d'attente"/>
-                <AppBarButton Icon="Add" Label="Ajouter tous à une liste de lecture"/>
+                <AppBarButton Icon="Add" Label="Ajouter à la file d'attente"/>
+                <AppBarButton Icon="Add" Label="Ajouter à une liste de lecture"/>
+                <!--<AppBarButton Icon="Accept" Label="Tous Cocher/Décocher"/>-->
             </CommandBar>
         </Grid>
         <Grid Grid.Row="2">
@@ -64,6 +67,11 @@
             animations:Connected.ListItemElementName="thumbnailImage"
             animations:Connected.ListItemKey="galleryAnimationKey"
                   ItemTemplate="{StaticResource SimpleMediaAlbumTemplate}">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="ItemClick">
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <controls:WrapPanel Orientation="Horizontal"/>

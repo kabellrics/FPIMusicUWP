@@ -15,6 +15,12 @@ using FPIMusicUWP.Services;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.ViewModels.ObservableObj.Mediatheque;
 using FPIMusicUWP.ViewModels.ObservableObj;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
+using Windows.UI.Xaml.Controls;
+using FPIMusicUWP.Views;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+using FPIMusicUWP.Core.Model;
 
 namespace FPIMusicUWP.ViewModels
 {
@@ -23,6 +29,7 @@ namespace FPIMusicUWP.ViewModels
         private ObsMediaArtiste _selectedMediaArtiste;
         private IService _service;
         private ISettingService _settingservice;
+        private ICommand _itemSelectedCommand;
 
         public ObsMediaArtiste SelectedMediaArtiste
         {
@@ -33,6 +40,7 @@ namespace FPIMusicUWP.ViewModels
                 ImagesNavigationHelper.UpdateImageId(MediaArtistesViewModel.MediaArtistesSelectedIdKey, ((ObsMediaArtiste)SelectedMediaArtiste)?.Id.ToString());
             }
         }
+        public ICommand ItemSelectedCommand => _itemSelectedCommand ?? (_itemSelectedCommand = new RelayCommand<ItemClickEventArgs>(OnItemSelected));
 
         public ObservableCollection<ObsMediaAlbum> Albums { get; } = new ObservableCollection<ObsMediaAlbum>();
         public ObservableCollection<ObsMediaAlbum> SelectedAlbums { get; } = new ObservableCollection<ObsMediaAlbum>();
@@ -42,10 +50,20 @@ namespace FPIMusicUWP.ViewModels
             _settingservice = Ioc.Default.GetRequiredService<ISettingService>();
         }
 
+        private void OnItemSelected(ItemClickEventArgs args)
+        {
+            var selected = args.ClickedItem as ObsMediaAlbum;
+            //ImagesNavigationHelper.AddImageId(MediaArtistesSelectedIdKey, selected.Id.ToString());
+            NavigationService.Frame.SetListDataItemForNextConnectedAnimation(selected);
+            NavigationService.Navigate<MediaAlbumsDetailPage>(selected.Id);
+        }
         public async Task LoadDataAsync()
         {
-            //Source.Clear();
-
+            Albums.Clear();
+            if (SelectedMediaArtiste != null)
+            {
+                Initialize(SelectedMediaArtiste.Id, NavigationMode.New); 
+            }
             //// Replace this with your actual data
             //var data = await SampleDataService.GetImageGalleryDataAsync("ms-appx:///Assets");
 
@@ -59,6 +77,7 @@ namespace FPIMusicUWP.ViewModels
         {
             if (selectedImageID !=-1 && navigationMode == NavigationMode.New)
             {
+                Albums.Clear();
                 var items = await _service.Mediatheque.Artistes.Artistes();
                 var item = items.FirstOrDefault(x=>x.Id == selectedImageID);
                 SelectedMediaArtiste =new ObsMediaArtiste(item,_settingservice.APIURLEndpoint);

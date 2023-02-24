@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.Core.Models;
 using FPIMusicUWP.Helpers;
 using FPIMusicUWP.Services;
@@ -16,7 +17,7 @@ namespace FPIMusicUWP.Views
 {
     public sealed partial class CompilAlbumDetailPage : Page
     {
-        public CompilAlbumDetailViewModel ViewModel { get; } = new CompilAlbumDetailViewModel();
+        public CompilAlbumDetailViewModel ViewModel { get; set; }// = new CompilAlbumDetailViewModel();
 
         public CompilAlbumDetailPage()
         {
@@ -26,6 +27,7 @@ namespace FPIMusicUWP.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            ViewModel = Ioc.Default.GetRequiredService<CompilAlbumDetailViewModel>();
             await ViewModel.LoadDataAsync();
             ViewModel.Initialize(int.Parse(e.Parameter.ToString()), e.NavigationMode);
         }
@@ -51,14 +53,14 @@ namespace FPIMusicUWP.Views
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (var selectedItem in e.AddedItems)
-            {
-                ViewModel.SelectedAlbSongs.Add(selectedItem as ObsSong);
-            }
-            foreach (var unSelectedItem in e.RemovedItems)
-            {
-                ViewModel.SelectedAlbSongs.Remove(unSelectedItem as ObsSong);
-            }
+            //foreach (var selectedItem in e.AddedItems)
+            //{
+            //    ViewModel.SelectedAlbSongs.Add(selectedItem as ObsSong);
+            //}
+            //foreach (var unSelectedItem in e.RemovedItems)
+            //{
+            //    ViewModel.SelectedAlbSongs.Remove(unSelectedItem as ObsSong);
+            //}
         }
     }
 }

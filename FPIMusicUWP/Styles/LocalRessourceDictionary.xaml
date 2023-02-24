@@ -5,6 +5,9 @@
     xmlns:ModelMedia="using:FPIMusicUWP.ViewModels.ObservableObj.Mediatheque"
     xmlns:ModelCompil="using:FPIMusicUWP.ViewModels.ObservableObj.Compilation"
     xmlns:ModelDeezer="using:FPIMusicUWP.ViewModels.ObservableObj.Deezer"
+    xmlns:Model="using:FPIMusicUWP.ViewModels.ObservableObj"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
     <DataTemplate x:Key="GroupedMediaArtisteTemplate" x:DataType="ModelMedia:ObsGroupedMediaArtiste">
         <Grid>
@@ -93,6 +96,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
             </Grid.RowDefinitions>
             <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="0">
                 <controls:ImageEx  PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
@@ -100,6 +104,10 @@
                                   Source="{x:Bind DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
             </Viewbox>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="{x:Bind Name,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}" FontSize="25"
+                                       Style="{ThemeResource TitleTextBlockStyle}" TextWrapping="WrapWholeWords"
+                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="DeezerArtisteTemplate" x:DataType="ModelDeezer:ObsDeezerArtiste">
@@ -207,38 +215,42 @@
             </StackPanel>
         </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="CompilSongTemplate" x:DataType="ModelCompil:ObsCompilSong">
-        <Grid Margin="1" Height="50">
+    <DataTemplate x:Key="SongTemplate" x:DataType="Model:ObsSong">
+        <Grid Margin="1" Height="75">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <!--<ColumnDefinition Width="*"></ColumnDefinition>-->
             </Grid.ColumnDefinitions>
-            <Viewbox Stretch="Uniform" Grid.Column="0">
+            <Viewbox Stretch="UniformToFill" Grid.Column="0">
+                <CheckBox IsChecked="{x:Bind Selected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="1" Margin="5">
                 <controls:ImageEx  PlaceholderSource="ms-appx:///Assets/PlaceholderImage.png" PlaceholderStretch="Fill"
                                   IsCacheEnabled="True" Stretch="Fill"
                                   Source="{x:Bind DisplayCover,Mode=OneWay}"
                                   CornerRadius="60,60,60,60"/>
             </Viewbox>
-            <Viewbox Grid.Column="1">
-                <TextBlock Text="{x:Bind Title,Mode=OneWay}"
+            <!--<Viewbox Grid.Column="2">-->
+            <TextBlock Width="450" Grid.Column="2" Text="{x:Bind Title,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}" FontSize="25"
+                                       HorizontalTextAlignment="Left" HorizontalAlignment="Left"></TextBlock>
+            <!--</Viewbox>
+            <Viewbox Grid.Column="3">-->
+            <TextBlock Grid.Column="3" Text="{x:Bind ArtisteAlbumDisplay,Mode=OneWay}"
+                                        Margin="{StaticResource SmallTopBottomMargin}"
+                                       Style="{ThemeResource TitleTextBlockStyle}" FontSize="25"
+                                       HorizontalTextAlignment="Left" HorizontalAlignment="Left" ></TextBlock>
+            <!--</Viewbox>
+            <Viewbox Grid.Column="4">-->
+                <!--<TextBlock Width="700" Grid.Column="4" Text="{x:Bind Album,Mode=OneWay}"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
-                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-            </Viewbox>
-            <Viewbox Grid.Column="2">
-                <TextBlock Text="{x:Bind Artiste,Mode=OneWay}"
-                                        Margin="{StaticResource SmallTopBottomMargin}"
-                                       Style="{ThemeResource TitleTextBlockStyle}"
-                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-            </Viewbox>
-            <Viewbox Grid.Column="3">
-                <TextBlock Text="{x:Bind Album,Mode=OneWay}"
-                                        Margin="{StaticResource SmallTopBottomMargin}"
-                                       Style="{ThemeResource TitleTextBlockStyle}"
-                                       HorizontalTextAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-            </Viewbox>
+                                       HorizontalTextAlignment="Left" HorizontalAlignment="Left" ></TextBlock>-->
+            <!--</Viewbox>-->
             <!--<TextBlock Text="{x:Bind Title,Mode=OneWay}" Grid.Column="1"
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
