@@ -17,65 +17,86 @@
     x:Name="GroupsSource"
     Source="{x:Bind ViewModel.GrpAlbums}"
     IsSourceGrouped="true"
-    ItemsPath="Items"
+            ItemsPath="Items"
     />
     </Page.Resources>
 
-        <Grid x:Name="ContentArea">
-        <GridView x:Name="gridinzoom" ItemsSource="{x:Bind GroupsSource.View}"
+    <Grid x:Name="ContentArea">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Derniers albums ajoutés" Style="{StaticResource HeaderTextBlockStyle}"></TextBlock>
+            <ListView Grid.Row="1" ItemsSource="{x:Bind ViewModel.LastAlbums}"
+            IsItemClickEnabled="True"
+                  ItemTemplate="{StaticResource SimpleMediaAlbumTemplate}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:UniformGrid Rows="1" Columns="5">
+                        </controls:UniformGrid>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+        </Grid>
+        <SemanticZoom Grid.Row="1">
+            <SemanticZoom.ZoomedInView>
+                <GridView x:Name="gridinzoom" ItemsSource="{x:Bind GroupsSource.View}"
             IsItemClickEnabled="True"
                           ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollMode="Enabled"
         AutomationProperties.AutomationId="gridinzoom"
         AutomationProperties.Name="Grouped Items"
                   Margin="116,0,40,6"
                   ItemTemplate="{StaticResource MediaAlbumTemplate}">
-            <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="ItemClick">
-                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />
-                </ic:EventTriggerBehavior>
-            </i:Interaction.Behaviors>
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-                <GridView.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.HeaderTemplate>
-                            <DataTemplate x:DataType="models:ObsGroupedMediaAlbum">
-                                <TextBlock Text="{x:Bind Key}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                            </DataTemplate>
-                        </GroupStyle.HeaderTemplate>
-                        <GroupStyle.Panel>
-                            <ItemsPanelTemplate>
-                                <VariableSizedWrapGrid Orientation="Vertical" MaximumRowsOrColumns="4" Margin="0,0,80,0"/>
-                            </ItemsPanelTemplate>
-                        </GroupStyle.Panel>
-                    </GroupStyle>
-                </GridView.GroupStyle>
-            </GridView>
-            <!--<GridView
-            Padding="{StaticResource MediumLeftRightMargin}"
-            animations:Connected.ListItemElementName="thumbnailImage"
-            animations:Connected.ListItemKey="galleryAnimationKey"
-            IsItemClickEnabled="True"
-            ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
-            SelectionMode="None">
-            <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="ItemClick">
-                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />
-                </ic:EventTriggerBehavior>
-            </i:Interaction.Behaviors>
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="models:SampleImage">
-                    <Image
-                        x:Name="thumbnailImage"
-                        AutomationProperties.Name="{x:Bind Name}"
-                        ToolTipService.ToolTip="{x:Bind Name}"
-                        Source="{x:Bind Source}"
-                        Style="{StaticResource ThumbnailImageStyle}" />
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>-->
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="ItemClick">
+                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate x:DataType="models:ObsGroupedMediaAlbum">
+                                    <TextBlock Text="{x:Bind Key}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <VariableSizedWrapGrid Orientation="Vertical" MaximumRowsOrColumns="4" Margin="0,0,80,0"/>
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                        </GroupStyle>
+                    </GridView.GroupStyle>
+                </GridView>
+
+            </SemanticZoom.ZoomedInView>
+            <SemanticZoom.ZoomedOutView>
+                <GridView ItemsSource="{x:Bind GroupsSource.View.CollectionGroups}"
+            IsItemClickEnabled="True">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="models:ObsGroupedMediaAlbum">
+                            <TextBlock Text="{Binding Key}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                       Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <controls:UniformGrid Rows="2" Columns="14">
+                            </controls:UniformGrid>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </SemanticZoom.ZoomedOutView>
+        </SemanticZoom>
     </Grid>
 </Page>

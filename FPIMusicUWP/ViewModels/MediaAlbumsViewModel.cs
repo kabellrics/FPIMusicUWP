@@ -17,6 +17,10 @@ using Windows.UI.Xaml.Controls;
 using FPIMusicUWP.Services.Settings;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using FPIMusicUWP.ViewModels.ObservableObj.Mediatheque;
+using System.Linq;
+using Microsoft.Toolkit.Collections;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace FPIMusicUWP.ViewModels
 {
@@ -29,7 +33,10 @@ namespace FPIMusicUWP.ViewModels
         private ICommand _itemSelectedCommand;
 
         //public ObservableCollection<SampleImage> Source { get; } = new ObservableCollection<SampleImage>();
+        //public List<ObsGroupedMediaAlbum> GrpAlbums { get; } = new List<ObsGroupedMediaAlbum>();
         public ObservableCollection<ObsGroupedMediaAlbum> GrpAlbums { get; } = new ObservableCollection<ObsGroupedMediaAlbum>();
+        public ReadOnlyObservableGroupedCollection<string, ObsMediaAlbum> ObsGrpAlbums { get; set; }
+        public ObservableCollection<ObsMediaAlbum> LastAlbums { get; } = new ObservableCollection<ObsMediaAlbum>();
 
         public ICommand ItemSelectedCommand => _itemSelectedCommand ?? (_itemSelectedCommand = new RelayCommand<ItemClickEventArgs>(OnItemSelected));
 
@@ -42,21 +49,23 @@ namespace FPIMusicUWP.ViewModels
         public async Task LoadDataAsync()
         {
             GrpAlbums.Clear();
+            LastAlbums.Clear();
             var arts = await _service.Mediatheque.Albums.groupedAlbums();
+            var lastitems = arts.SelectMany(x => x.Items).OrderByDescending(x => x.Id).Take(5);
+            foreach (var art in lastitems)
+            {
+                var obsitem = new ObsMediaAlbum(art, _settingservice.APIURLEndpoint);
+                LastAlbums.Add(obsitem);
+            }
+            var albSource = new ObservableGroupedCollection<String, ObsMediaAlbum>();
             foreach (var art in arts)
             {
                 var obsitem = new ObsGroupedMediaAlbum(art, _settingservice.APIURLEndpoint);
+                albSource.AddGroup(obsitem.Key, obsitem.Items);
                 GrpAlbums.Add(obsitem);
             }
-            //    Source.Clear();
+            ObsGrpAlbums = new ReadOnlyObservableGroupedCollection<string, ObsMediaAlbum>(albSource);
 
-            //    // Replace this with your actual data
-            //    var data = await SampleDataService.GetImageGalleryDataAsync("ms-appx:///Assets");
-
-            //    foreach (var item in data)
-            //    {
-            //        Source.Add(item);
-            //    }
         }
 
         private void OnItemSelected(ItemClickEventArgs args)
